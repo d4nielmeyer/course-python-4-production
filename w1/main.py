@@ -44,6 +44,23 @@ def revenue_per_region(dp: DataProcessor) -> Dict:
     }
     """
     ######################################## YOUR CODE HERE ##################################################
+    
+    data_reader_generator = (row for row in dp.data_reader)
+
+    _ = next(data_reader_generator)
+
+    revenue_per_region = {}
+
+    for row in tqdm(data_reader_generator):
+        country = row['Country']
+        revenue = dp.to_float(row['TotalPrice'])
+
+        if country in revenue_per_region:
+            revenue_per_region[country] += revenue
+        else: 
+            revenue_per_region[country] = revenue
+
+    return revenue_per_region
 
     ######################################## YOUR CODE HERE ##################################################
 

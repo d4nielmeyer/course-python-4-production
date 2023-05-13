@@ -113,6 +113,14 @@ class DataReader:
         """
     ######################################## YOUR CODE HERE ##################################################
 
+        with open(self._fp, 'r') as file:
+            for row in file:
+                result = {}
+                table = list(zip(self._col_names, row.split(self._sep)))
+                for col, val in table:
+                    result[col] = val
+                yield result
+
     ######################################## YOUR CODE HERE ##################################################
 
     def get_file_path(self):

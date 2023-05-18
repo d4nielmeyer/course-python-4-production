@@ -45,6 +45,21 @@ class DB:
         Read more about datatypes in Sqlite here -> https://www.sqlite.org/datatype3.html
         """
     ######################################## YOUR CODE HERE ##################################################
+        
+        self._connection.execute(f'''
+            CREATE TABLE IF NOT EXISTS {self._table_name} 
+                (
+                process_id TEXT NOT NULL, 
+                file_name TEXT DEFAULT NULL, 
+                file_path TEXT DEFAULT NULL, 
+                description TEXT DEFAULT NULL, 
+                start_time TEXT NOT NULL,
+                end_time TEXT DEFAULT NULL, 
+                percentage REAL DEFAULT NULL
+                )
+                ''')
+
+        self._connection.commit()
 
     ######################################## YOUR CODE HERE ##################################################
 
@@ -63,6 +78,14 @@ class DB:
         :return: None
         """
     ######################################## YOUR CODE HERE ##################################################
+        
+        self._connection.execute(f'''
+                            INSERT INTO {self._table_name} (process_id, file_name, file_path, description, start_time, end_time, percentage) 
+                            VALUES (?, ?, ?, ?, ?, ?, ?)
+                            ''', 
+                            (process_id, file_name, file_path, description, start_time, end_time, percentage))
+
+        self._connection.commit()
 
     ######################################## YOUR CODE HERE ##################################################
 
@@ -95,6 +118,11 @@ class DB:
         :return: None
         """
     ######################################## YOUR CODE HERE ##################################################
+
+        self._connection.execute(f'''UPDATE {self._table_name} SET percentage='{percentage}'
+                                     WHERE process_id='{process_id}';''')
+        
+        self._connection.commit()
 
     ######################################## YOUR CODE HERE ##################################################
 

@@ -43,6 +43,8 @@ async def get() -> Dict:
 
     ######################################## YOUR CODE HERE ##################################################
 
+    return {"status": "ok"}
+
     ######################################## YOUR CODE HERE ##################################################
 
 
@@ -54,6 +56,8 @@ async def get() -> HTMLResponse:
     """
     ######################################## YOUR CODE HERE ##################################################
 
+    return HTMLResponse(content=open('index.html', 'r').read(), status_code=200)
+
     ######################################## YOUR CODE HERE ##################################################
 
 
@@ -64,5 +68,10 @@ async def get() -> List[ProcessStatus]:
     Get all the records from the process table and return it using the pydantic model ProcessStatus
     """
     ######################################## YOUR CODE HERE ##################################################
+
+    data = DB().read_all()
+    process_status = [ProcessStatus(**process) for process in data]
+    
+    return process_status
 
     ######################################## YOUR CODE HERE ##################################################
